@@ -10,9 +10,9 @@ from telegram.ext import (
 from telegram.error import TelegramError
 
 # ==================== НАСТРОЙКИ ====================
-BOT_TOKEN = "YOUR_BOT_TOKEN"
-ALLOWED_CHAT_ID = -1001234567890
-OWNER_ID = 123456789  # Твой Telegram ID
+BOT_TOKEN = "8665328135:AAH4IeFAF_V6niWdxxOemyhdcLZaoNsocds"
+ALLOWED_CHAT_ID = -1004489445301
+OWNER_ID = 8663399544  # Твой Telegram ID
 
 GIFTS = ["5170233102089322756", "5168043875654180966"]
 CHECK_INTERVAL_MIN = 1
