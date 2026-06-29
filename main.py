@@ -497,10 +497,18 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(text, parse_mode="HTML")
 
 # ==================== ЗАПУСК ====================
-async def main():
+async def post_init(application):
     admin_ranks[OWNER_ID] = 5
+    asyncio.create_task(gift_loop(application.bot))
+    logging.info("Таймер активности запущен")
 
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+def main():
+    app = (
+        ApplicationBuilder()
+        .token(BOT_TOKEN)
+        .post_init(post_init)
+        .build()
+    )
 
     app.add_handler(CommandHandler("warn",     warn_cmd))
     app.add_handler(CommandHandler("unwarn",   unwarn_cmd))
@@ -521,11 +529,8 @@ async def main():
     app.add_handler(CommandHandler("announce", announce_cmd))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_message))
 
-    # Запускаем таймер параллельно
-    asyncio.create_task(gift_loop(app.bot))
-
     print("Бот запущен!")
-    await app.run_polling()
+    app.run_polling()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
